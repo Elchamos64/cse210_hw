@@ -21,7 +21,6 @@ class Program
             {
                 Console.WriteLine("Too high!");
             }
-
             else if (guess < magicNumber)
             {
                 Console.WriteLine("Too low");
