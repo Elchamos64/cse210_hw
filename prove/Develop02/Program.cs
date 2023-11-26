@@ -1,36 +1,28 @@
-
-
 using System;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-                    List<string> questions = new List<string>
-            {
-                "If I had one thing I could do over today? What would it be?",
-                "What was the best part of my day", 
-            };
+class Program {
+    static void Main(string[] args) {
+        Console.Clear();
 
-            Random random = new Random();
-            int randomIndex = random.Next(0, questions.Count);
-            string randomQuestion = questions[randomIndex];
+        Reference reference = new Reference();
+        string mb_text =reference.getText();
+        string mb_reference =reference.getReference();
 
-            Console.WriteLine(randomQuestion);
-            Console.Write("> ");
-            string orAnswer = Console.ReadLine();
 
-            // Create the path
-            string filePath = "answer.txt";
+        Scripture scripture = new Scripture(mb_text, mb_reference);
 
-            try
-            {
-                // Write the answer to the text file
-                System.IO.File.WriteAllText(filePath, randomQuestion + ": " + orAnswer);
+        while (!scripture.AreAllWordsHidden()) {
+            Console.Clear();
+            Console.WriteLine(scripture.ToString());
+            Console.WriteLine("Press Enter to continue or type 'quit' to exit.");
+            string input = Console.ReadLine();
+
+            if (input=="quit") {
+                break;
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("An error occurred: " + e.Message);
-            }
+
+            scripture.HideRandomWord();
+        }
     }
+
 }
