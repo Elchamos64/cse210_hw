@@ -3,7 +3,7 @@ using System.Threading;
 
 class Breathing : Activity {
 
-    public Breathing(string mb_name, string mb_description) : base(mb_name, mb_description)
+    public Breathing(string or_name, string or_description) : base(or_name, or_description)
     {
 
     }

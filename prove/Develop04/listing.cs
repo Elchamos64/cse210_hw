@@ -2,15 +2,15 @@ using System;
 using System.Diagnostics;
 
 class Listing : Activity{
-    private List<string> _mb_questions;
+    private List<string> _or_questions;
     private List<string> _mb_userResponse;
     public Listing() : base(){
-        _mb_questions = new List<string>();
+        _or_questions = new List<string>();
         _mb_userResponse = new List<string>();
     }
 
-    public Listing(string mb_name, string mb_description): base(mb_name, mb_description){
-        _mb_questions = new List<string>{
+    public Listing(string or_name, string or_description): base(or_name, or_description){
+        _or_questions = new List<string>{
             "Who are people that you appreciate?",
             "What are personal strengths of yours?",
             "Who are people that you have helped this week?",
@@ -38,8 +38,8 @@ class Listing : Activity{
     public void displayPrompt(){
 
         Random rnd = new Random();
-        int mb_rand_question_index = rnd.Next(_mb_questions.Count-1);
-        string mb_rand_question = _mb_questions[mb_rand_question_index];
+        int mb_rand_question_index = rnd.Next(_or_questions.Count-1);
+        string mb_rand_question = _or_questions[mb_rand_question_index];
 
         Console.WriteLine(" ---"+mb_rand_question+"---\n");
 
