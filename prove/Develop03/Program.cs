@@ -5,11 +5,11 @@ class Program {
         Console.Clear();
 
         Reference reference = new Reference();
-        string mb_text =reference.getText();
-        string mb_reference =reference.getReference();
+        string or_text =reference.getText();
+        string or_reference =reference.getReference();
 
 
-        Scripture scripture = new Scripture(mb_text, mb_reference);
+        Scripture scripture = new Scripture(or_text, or_reference);
 
         while (!scripture.AreAllWordsHidden()) {
             Console.Clear();

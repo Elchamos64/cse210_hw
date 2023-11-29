@@ -1,60 +1,56 @@
 using System;
-using System.Collections.Generic;
+public class Journal 
+{
+    public List<Entry>  or_entries = new List<Entry>();
 
-class Journal {
-    private string _mb_username;
-    private List<Entry> _mb_entries;
-    private string _mb_filename;
-
-    public Journal(string _mb_username){
-        this._mb_username = _mb_username;
-        _mb_entries = new List<Entry>();
-        _mb_filename = "journal.txt";
-    }
-
-    public void AddEntry(DateTime _mb_date, string _mb_prompt, string _mb_location, string _mb_response)
+    public void AddEntry(Entry newEntry)
     {
-        Entry entry = new Entry(_mb_date, _mb_prompt, _mb_location, _mb_response);
-        _mb_entries.Add(entry);
+        or_entries.Add(newEntry);
     }
 
-    public void Display(){
-        foreach (Entry entry in _mb_entries){
-            entry.Display();
+    public void DisplayAll()
+    {
+        foreach (Entry promp in or_entries) 
+        {
+            promp.Display();
         }
     }
 
-    public void SaveToFile(){
-        using (StreamWriter writer = new StreamWriter("journal.txt")){
-            foreach(Entry entry in _mb_entries){
-                writer.WriteLine($"Date: {entry.Date}");
-                writer.WriteLine($"Prompt: {entry.Prompt}");
-                writer.WriteLine($"Location: {entry.Location}");
-                writer.WriteLine($"Response: {entry.Response}");
-                writer.WriteLine();
-            }
+    public void SaveToFile(List<Entry> or_entries) 
+    
+    {
+        Console.WriteLine("What is the filename? ");
+        string filename = Console.ReadLine();
+        using (StreamWriter outputFile = new StreamWriter(filename)) 
+        {
+           foreach (Entry p in or_entries) 
+           {
+
+                outputFile.WriteLine($"{p.or_date},{p.or_promptText},{p.or_entryText}");
+           }
+           
+          
         }
     }
 
-    public void LoadFromFile(){
-        if(File.Exists(_mb_filename)){
-            _mb_entries.Clear();
-            using (StreamReader reader = new StreamReader(_mb_filename)){
-                while (!reader.EndOfStream){
-                    DateTime _mb_date = DateTime.Parse(reader.ReadLine());
-                    string _mb_prompt = reader.ReadLine();
-                    string _mb_location = reader.ReadLine();
-                    string _mb_response = reader.ReadLine();
+    public List<Entry> LoadFromFile(string file)
+    {
+       string[] lines = System.IO.File.ReadAllLines(file);
+       List<Entry> newData = new List<Entry>();
 
-                    Entry entry = new Entry(_mb_date, _mb_prompt, _mb_location, _mb_response);
-                    _mb_entries.Add(entry);
+       foreach (string line in lines)
+       {
+            string[] parts = line.Split(",");
 
-                    reader.ReadLine();
-                }
-            }
-        }
-    }
-    public string GetUserName(){
-        return _mb_username;
+            Entry data = new Entry();
+            data.or_date = parts[0];
+            data.or_promptText = parts[1];
+            data.or_entryText = parts[2];
+
+           
+            newData.Add(data); 
+       }
+
+       return newData;
     }
 }
