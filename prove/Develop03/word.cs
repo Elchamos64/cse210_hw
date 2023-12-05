@@ -1,29 +1,27 @@
 using System;
 
 class Word {
-    private string _text;
-    private bool _isHidden;
+    private string or_text; 
+    private bool or_isHidden; 
 
     public Word(string text) {
-        _text = text;
-        _isHidden = false;
-    }
-
-    public void Show() {
-        _isHidden = false;
+        or_text = text;
+        or_isHidden = false;
     }
 
     public void Hide() {
-        _isHidden = true;
-    }
-    public bool getHidden(){
-        return _isHidden;
+        or_isHidden = true;
     }
 
+    public bool getHidden(){
+        return or_isHidden;
+    }
+
+
     public string hideOrShow() {
-        if (_isHidden) {
-            return "_______"; // Display underscores for hidden words.
+        if (or_isHidden) {
+            return "_______";
         }
-        return _text;
+        return or_text;
     }
 }

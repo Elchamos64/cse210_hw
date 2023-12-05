@@ -3,46 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 
 class Scripture {
-    private string _text;
-    private List<Word> _words;
-    private string _reference;
+    private string or_text;
+    private List<Word> or_words;
+    private string or_reference;
+
 
     public Scripture(){
-        _text = "";
-        _words = new List<Word>();
-        _reference = "";
+        or_text = "";
+        or_words = new List<Word>();
+        or_reference = "";
     }
-    public Scripture(string text, string reference) {
-        _text = text;
-        _reference = reference;
-        _words = new List<Word>();
 
-        // Split the text into words and create Word objects for each word.
+
+    public Scripture(string text, string reference) {
+        or_text = text;
+        or_reference = reference;
+        or_words = new List<Word>();
+
+
         string[] wordsArray = text.Split(' ');
         foreach (string word in wordsArray) {
-            _words.Add(new Word(word));
+            or_words.Add(new Word(word));
         }
     }
 
-    public string ToString() {
-        List<string> displayWords = new List<string>();
-        foreach (Word word in _words) {
-            displayWords.Add(word.hideOrShow());
+
+    public override string ToString() {
+        List<string> or_displayWords = new List<string>();
+        foreach (Word word in or_words) {
+            or_displayWords.Add(word.hideOrShow());
         }
-        return $"{_reference}: {string.Join(" ", displayWords)}";
+        return $"{or_reference}: {string.Join(" ", or_displayWords)}";
     }
+
 
     public bool AreAllWordsHidden() {
-        return _words.All(word => word.getHidden());
+        return or_words.All(word => word.getHidden());
     }
+
 
     public void HideRandomWord() {
         Random random = new Random();
         int index;
         do {
-            index = random.Next(_words.Count);
-        } while (_words[index].getHidden());
+            index = random.Next(or_words.Count);
+        } while (or_words[index].getHidden());
 
-        _words[index].Hide();
+        or_words[index].Hide();
     }
 }
