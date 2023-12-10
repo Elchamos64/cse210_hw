@@ -2,14 +2,31 @@ using System;
 
 class SimpleGoal : Goal
 {
-    public SimpleGoal(string name, string description, int points) : base(name, description)
+    // Constructor for SimpleGoal
+    public SimpleGoal(string mb_name, string mb_description, int mb_points, bool mb_isCompleted)
+        : base(mb_name, mb_description, mb_points)
     {
-        Points = points;
+        // Set the isCompleted field for SimpleGoal
+        this.or_isCompleted = mb_isCompleted;
     }
 
-    public override void Display()
+    // Override the List method to customize how SimpleGoal is displayed
+    public override void List(int i)
     {
-        base.Display();
-        Console.WriteLine("Goal Type: Simple");
+        if (or_isCompleted)
+        {
+            Console.WriteLine($"{i}. [X] {base.getName()} ({base.getDescription()})");
+        }
+        else
+        {
+            Console.WriteLine($"{i}. [ ] {base.getName()} ({base.getDescription()})");
+        }
+    }
+
+    // Override the SaveFile method to provide a custom string representation for saving
+    public override string SaveFile()
+    {
+        // Return a formatted string containing information about the SimpleGoal
+        return $"SimpleGoal,{base.getName()},{base.getDescription()},{base.getPoints()},{or_isCompleted}";
     }
 }

@@ -1,31 +1,58 @@
 using System;
 
-class ChecklistGoal : Goal
+class CheckListGoal : Goal
 {
-    private int completionCount;
-    private int completionTarget;
+    // Fields specific to CheckListGoal
+    private int or_currentGoal;
+    private int or_bonus;
+    private int or_bonusPoint;
 
-    public ChecklistGoal(string name, string description, int points, int target) : base(name, description)
+    // Constructor
+    public CheckListGoal(string or_name, string or_description, int or_points, int bonus, int or_bonus_point) : base(or_name, or_description, or_points)
     {
-        Points = points;
-        completionCount = 0;
-        completionTarget = target;
+        // Initialize fields specific to CheckListGoal
+        or_bonus = bonus;
+        or_bonusPoint = or_bonus_point;
     }
 
-    public override void MarkComplete()
+    // Override List method
+    public override void List(int i)
     {
-        completionCount++;
-        if (completionCount == completionTarget)
+        if (or_isCompleted)
         {
-            // Bonus points when the checklist is completed
-            Points += 500;
+            Console.WriteLine($"{i}. [X] {base.getName()} ({base.getDescription()}) -- Currently Completed: {or_currentGoal}/{or_bonus}");
+        }
+        else
+        {
+            Console.WriteLine($"{i}. [ ] {base.getName()} ({base.getDescription()}) -- Currently Completed: {or_currentGoal}/{or_bonus}");
         }
     }
 
-    public override void Display()
+    // Override Complete method
+    public override int Complete()
     {
-        base.Display();
-        Console.WriteLine($"Goal Type: Checklist");
-        Console.WriteLine($"Completed {completionCount}/{completionTarget} times");
+        if (or_isCompleted == false)
+        {
+            or_currentGoal += 1;
+            if (or_currentGoal == or_bonus)
+            {
+                or_isCompleted = true;
+                return base.getPoints() + or_bonusPoint;
+            }
+            else
+            {
+                return base.getPoints();
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    // Override SaveFile method
+    public override string SaveFile()
+    {
+        return $"CheckListGoal,{base.getName()},{base.getDescription()},{base.getPoints()},{or_isCompleted}, {or_currentGoal}, {or_bonusPoint}, {or_bonus}";
     }
 }

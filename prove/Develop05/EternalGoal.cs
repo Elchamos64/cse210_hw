@@ -2,20 +2,30 @@ using System;
 
 class EternalGoal : Goal
 {
-    public EternalGoal(string name, string description, int points) : base(name, description)
+    // Constructor
+    public EternalGoal(string or_name, string or_description, int or_points) : base(or_name, or_description, or_points)
     {
-        Points = points;
+        // The constructor of the base class (Goal) is called with specified parameters
     }
 
-    public override void MarkComplete()
+    // Override List method
+    public override void List(int i)
     {
-        // Eternal goals never complete, but they accumulate points
-        Points += 100;
+        Console.WriteLine($"{i}. [ ] {base.getName()} ({base.getDescription()})");
+        // This displays the eternal goal information in a specific format
     }
 
-    public override void Display()
+    // Override Complete method
+    public override int Complete()
     {
-        base.Display();
-        Console.WriteLine("Goal Type: Eternal");
+        return base.getPoints();
+        // Completing an eternal goal returns its base points without any additional logic
+    }
+
+    // Override SaveFile method
+    public override string SaveFile()
+    {
+        return $"EternalGoal,{base.getName()},{base.getDescription()},{base.getPoints()},{or_isCompleted}";
+        // This returns a string representation of the eternal goal for saving to a file
     }
 }

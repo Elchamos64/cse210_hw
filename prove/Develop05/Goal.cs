@@ -2,29 +2,63 @@ using System;
 
 class Goal
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public int Points { get; protected set; }
-    public bool IsCompleted { get; protected set; }
+    // Fields
+    public bool or_isCompleted = false;
+    private string or_name;
+    private string or_description;
+    private int or_point;
 
-    public Goal(string name, string description)
+    // Constructor
+    public Goal(string name, string description, int points)
     {
-        Name = name;
-        Description = description;
-        Points = 0;
-        IsCompleted = false;
+        or_name = name;
+        or_point = points;
+        or_description = description;
     }
 
-    public virtual void MarkComplete()
+    // Getter methods
+    public string getName()
     {
-        IsCompleted = true;
+        return or_name;
     }
 
-    public virtual void Display()
+    public string getDescription()
     {
-        Console.WriteLine($"Goal: {Name}");
-        Console.WriteLine($"Description: {Description}");
-        Console.WriteLine($"Points: {Points}");
-        Console.WriteLine($"Completed: {(IsCompleted ? "Yes" : "No")}");
+        return or_description;
+    }
+
+    public int getPoints()
+    {
+        return or_point;
+    }
+
+    public bool getComplete()
+    {
+        return or_isCompleted;
+    }
+
+    // Virtual methods
+    public virtual void List(int i)
+    {
+        // This method is intended to be overridden by derived classes
+    }
+
+    public virtual string SaveFile()
+    {
+        // This method is intended to be overridden by derived classes
+        return "";
+    }
+
+    public virtual int Complete()
+    {
+        if (or_isCompleted == false)
+        {
+            or_isCompleted = true;
+            return or_point;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
